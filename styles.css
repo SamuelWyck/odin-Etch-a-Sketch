@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.debug {
+    border: 1px solid black;
+}
+
+.canvas {
+    width: 600px;
+    margin: auto;
+    height: 500px;
+}
