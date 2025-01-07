@@ -6,8 +6,19 @@ const canvasHeight = canvas.clientHeight;
 createGrid(16);
 
 
+canvas.addEventListener("mouseover", function (e) {
+    if (e.target.matches(".pixel")) {
+        colorPixel(e);
+    }
+})
 
 
+function colorPixel(event) {
+    let opacity = Number(event.target.style.opacity);
+    opacity += .1;
+    opacity = (opacity > 1) ? 1 : opacity;
+    event.target.style.opacity = `${opacity}`;
+}
 
 
 function createGrid(size) {
@@ -22,9 +33,10 @@ function createGrid(size) {
 
 function createPixel(pixelWidth, pixelHeight) {
     const pixel = document.createElement("div");
-    pixel.classList.toggle(".grid-pixel");
+    pixel.classList.add("pixel");
     pixel.style.width = `${pixelWidth}px`;
     pixel.style.height = `${pixelHeight}px`;
-    pixel.style.backgroundColor = "white";
+    pixel.style.backgroundColor = "black";
+    pixel.style.opacity = "0%"
     canvas.appendChild(pixel);
 }
