@@ -62,6 +62,10 @@ function clearCanvas() {
 
 
 function isValidInput(input) {
+    if (input === "") {
+        alert("Please enter a number");
+        return false;
+    }
     if (isNaN(input)) {
         alert("Please enter a number");
         return false;
