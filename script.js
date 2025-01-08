@@ -9,6 +9,7 @@ const currentSizeSpan = document.querySelector("#current-size");
 
 
 
+let colorBlack = true;
 createGrid(16);
 
 
@@ -43,9 +44,29 @@ canvas.addEventListener("mouseover", function (e) {
 settingBtnsDiv.addEventListener("click", function (e) {
     if (e.target.matches("#clear-btn")) {
         eraseGridPixels()
+    } else if (e.target.matches("#color-mode-btn")) {
+        changeColorMode();
     }
 })
 
+
+
+function changeColorMode() {
+    colorBlack = !colorBlack;
+    changeGridPixelColor()
+}
+
+
+function changeGridPixelColor() {
+    for (let i = 0; i < canvas.children.length; i += 1) {
+        const pixel = canvas.children[i];
+        if (colorBlack) {
+            pixel.style.backgroundColor = "black";
+        } else {
+            pixel.style.backgroundColor = getRandomRGBValue();
+        }
+    }
+}
 
 
 function eraseGridPixels() {
@@ -123,7 +144,12 @@ function createPixel(pixelWidth, pixelHeight) {
     pixel.classList.add("pixel");
     pixel.style.width = `${pixelWidth}px`;
     pixel.style.height = `${pixelHeight}px`;
-    colorValue = getRandomRGBValue();
+    let colorValue;
+    if (colorBlack) {
+        colorValue = "black";
+    } else {
+        colorValue = getRandomRGBValue();
+    }
     pixel.style.backgroundColor = colorValue;
     pixel.style.opacity = "0"
     canvas.appendChild(pixel);
