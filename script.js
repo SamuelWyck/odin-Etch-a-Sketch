@@ -10,13 +10,14 @@ const currentSizeSpan = document.querySelector("#current-size");
 
 
 let colorBlack = true;
+let eraserMode = false;
 createGrid(16);
 
 
 
 sizeForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    changeGridSize(e);
+    changeGridSize();
 })
 
 
@@ -43,21 +44,33 @@ canvas.addEventListener("mouseover", function (e) {
 
 settingBtnsDiv.addEventListener("click", function (e) {
     if (e.target.matches("#clear-btn")) {
-        eraseGridPixels()
+        eraseGridPixels();
     } else if (e.target.matches("#color-mode-btn")) {
         changeColorMode();
+    } else if (e.target.matches("#eraser-btn")) {
+        toggleEraserMode();
     }
 })
 
 
 
-function changeColorMode() {
-    colorBlack = !colorBlack;
-    changeGridPixelColor()
+function toggleEraserMode(deactivate=false) {
+    if (deactivate) {
+        eraserMode = false;
+    } else {
+        eraserMode = !eraserMode;
+    }
 }
 
 
-function changeGridPixelColor() {
+function changeColorMode() {
+    toggleEraserMode(true);
+    colorBlack = !colorBlack;
+    changeGridPixelColorMode()
+}
+
+
+function changeGridPixelColorMode() {
     for (let i = 0; i < canvas.children.length; i += 1) {
         const pixel = canvas.children[i];
         if (colorBlack) {
@@ -70,6 +83,7 @@ function changeGridPixelColor() {
 
 
 function eraseGridPixels() {
+    toggleEraserMode(true);
     for (let i = 0; i < canvas.children.length; i += 1) {
         const pixel = canvas.children[i];
         pixel.style.opacity = "0";
@@ -77,7 +91,8 @@ function eraseGridPixels() {
 }
 
 
-function changeGridSize(event) {
+function changeGridSize() {
+    toggleEraserMode(true);
     const formData = new FormData(sizeForm);
     let size = formData.get("size").trim();
     sizeForm.reset();
@@ -123,8 +138,13 @@ function isValidInput(input) {
 
 function colorPixel(event) {
     let opacity = Number(event.target.style.opacity);
-    opacity += .1;
-    opacity = (opacity > 1) ? 1 : opacity;
+    if (!eraserMode) {
+        opacity += .1;
+        opacity = (opacity > 1) ? 1 : opacity;
+    } else {
+        opacity -= .1;
+        opacity = (opacity < 0) ? 0 : opacity;
+    }
     event.target.style.opacity = `${opacity}`;
 }
 
