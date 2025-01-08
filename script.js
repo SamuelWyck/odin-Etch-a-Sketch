@@ -1,7 +1,7 @@
 const canvas = document.querySelector(".canvas");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
-const btn = document.querySelector("#grid-size-btn");
+const btnlist = document.querySelectorAll("button");
 const sizeForm = document.querySelector("form");
 const currentSizeSpan = document.querySelector("#current-size");
 
@@ -17,13 +17,17 @@ sizeForm.addEventListener("submit", function (e) {
 })
 
 
-btn.addEventListener("mouseover", function (e) {
-    btn.classList.toggle("btn-hover");
+btnlist.forEach(function (btn) {
+    btn.addEventListener("mouseover", function (e) {
+        btn.classList.toggle("btn-hover");
+    })
 })
 
 
-btn.addEventListener("mouseout", function (e) {
-    btn.classList.toggle("btn-hover");
+btnlist.forEach(function (btn) {
+    btn.addEventListener("mouseout", function (e) {
+        btn.classList.toggle("btn-hover");
+    })
 })
 
 
