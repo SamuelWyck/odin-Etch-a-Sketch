@@ -98,7 +98,8 @@ function createPixel(pixelWidth, pixelHeight) {
     pixel.classList.add("pixel");
     pixel.style.width = `${pixelWidth}px`;
     pixel.style.height = `${pixelHeight}px`;
-    pixel.style.backgroundColor = "black";
+    colorValue = getRandomRGBValue();
+    pixel.style.backgroundColor = colorValue;
     pixel.style.opacity = "0"
     canvas.appendChild(pixel);
 }
@@ -113,5 +114,5 @@ function getRandomRGBValue() {
 
 
 function randomIntUpTo(number) {
-    return Math.floor(Math.random() * num + 1);
+    return Math.floor(Math.random() * number + 1);
 }
