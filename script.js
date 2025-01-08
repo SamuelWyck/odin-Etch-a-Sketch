@@ -1,9 +1,21 @@
 const canvas = document.querySelector(".canvas");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
+const btn = document.querySelector("#grid-size-btn");
 
 
 createGrid(16);
+
+
+
+btn.addEventListener("mouseover", function (e) {
+    btn.classList.toggle("btn-hover");
+})
+
+
+btn.addEventListener("mouseout", function (e) {
+    btn.classList.toggle("btn-hover");
+})
 
 
 canvas.addEventListener("mouseover", function (e) {
@@ -11,6 +23,7 @@ canvas.addEventListener("mouseover", function (e) {
         colorPixel(e);
     }
 })
+
 
 
 function colorPixel(event) {
