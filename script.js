@@ -92,13 +92,13 @@ function eraseGridPixels() {
 
 
 function changeGridSize() {
-    toggleEraserMode(true);
     const formData = new FormData(sizeForm);
     let size = formData.get("size").trim();
     sizeForm.reset();
     if (!isValidInput(size)) {
         return;
     }
+    toggleEraserMode(true);
     let cleanedSize = Math.round(parseInt(size));
     clearGrid();
     createGrid(cleanedSize);
