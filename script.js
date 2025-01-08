@@ -2,10 +2,19 @@ const canvas = document.querySelector(".canvas");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
 const btn = document.querySelector("#grid-size-btn");
+const sizeForm = document.querySelector("form");
+const currentSizeSpan = document.querySelector("#current-size");
+
 
 
 createGrid(16);
 
+
+
+sizeForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    changeGridSize(e);
+})
 
 
 btn.addEventListener("mouseover", function (e) {
@@ -24,6 +33,46 @@ canvas.addEventListener("mouseover", function (e) {
     }
 })
 
+
+
+function changeGridSize(event) {
+    const formData = new FormData(sizeForm);
+    let size = formData.get("size").trim();
+    sizeForm.reset();
+    if (!isValidInput(size)) {
+        return;
+    }
+    let cleanedSize = Math.round(parseInt(size));
+    clearCanvas();
+    createGrid(cleanedSize);
+    updateCurrentSizeText(cleanedSize);
+}
+
+
+function updateCurrentSizeText(size) {
+    currentSizeSpan.textContent = size;
+}
+
+
+function clearCanvas() {
+    while (canvas.firstChild !== null) {
+        canvas.removeChild(canvas.lastChild);
+    }
+}
+
+
+function isValidInput(input) {
+    if (isNaN(input)) {
+        alert("Please enter a number");
+        return false;
+    }
+    let intInput = Math.round(parseInt(input));
+    if (intInput > 100 || intInput < 1) {
+        alert("Please enter a valid number");
+        return false;
+    }
+    return true;
+}
 
 
 function colorPixel(event) {
@@ -50,6 +99,6 @@ function createPixel(pixelWidth, pixelHeight) {
     pixel.style.width = `${pixelWidth}px`;
     pixel.style.height = `${pixelHeight}px`;
     pixel.style.backgroundColor = "black";
-    pixel.style.opacity = "0%"
+    pixel.style.opacity = "0"
     canvas.appendChild(pixel);
 }
