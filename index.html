@@ -12,8 +12,10 @@
             <div class="title">Etch-a-Sketch!</div>
             <div class="size-rules">Enter a number 1 to 100</div>
             <div class="size-info">Current Grid Size: <span>16</span></div>
-            <input type="text">
-            <button id="grid-size-btn">Change Grid Size</button>
+            <form>
+                <input type="text" id="size-input" name="size" autocomplete="off">
+                <button id="grid-size-btn" type="submit">Change Grid Size</button>
+            </form>
         </div>
         <div class="canvas debug"></div>
     </body>
