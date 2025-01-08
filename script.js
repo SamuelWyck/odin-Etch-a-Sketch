@@ -102,3 +102,16 @@ function createPixel(pixelWidth, pixelHeight) {
     pixel.style.opacity = "0"
     canvas.appendChild(pixel);
 }
+
+
+function getRandomRGBValue() {
+    const red = randomIntUpTo(255);
+    const green = randomIntUpTo(255);
+    const blue = randomIntUpTo(255);
+    return `rgb(${red}, ${green}, ${blue})`
+}
+
+
+function randomIntUpTo(number) {
+    return Math.floor(Math.random() * num + 1);
+}
