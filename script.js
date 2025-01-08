@@ -2,6 +2,8 @@ const canvas = document.querySelector(".canvas");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
 const btnlist = document.querySelectorAll("button");
+const settingBtnsDiv = document.querySelector(
+    ".setting-btns-container");
 const sizeForm = document.querySelector("form");
 const currentSizeSpan = document.querySelector("#current-size");
 
@@ -38,6 +40,21 @@ canvas.addEventListener("mouseover", function (e) {
 })
 
 
+settingBtnsDiv.addEventListener("click", function (e) {
+    if (e.target.matches("#clear-btn")) {
+        eraseGridPixels()
+    }
+})
+
+
+
+function eraseGridPixels() {
+    for (let i = 0; i < canvas.children.length; i += 1) {
+        const pixel = canvas.children[i];
+        pixel.style.opacity = "0";
+    }
+}
+
 
 function changeGridSize(event) {
     const formData = new FormData(sizeForm);
@@ -47,7 +64,7 @@ function changeGridSize(event) {
         return;
     }
     let cleanedSize = Math.round(parseInt(size));
-    clearCanvas();
+    clearGrid();
     createGrid(cleanedSize);
     updateCurrentSizeText(cleanedSize);
 }
@@ -58,7 +75,7 @@ function updateCurrentSizeText(size) {
 }
 
 
-function clearCanvas() {
+function clearGrid() {
     while (canvas.firstChild !== null) {
         canvas.removeChild(canvas.lastChild);
     }
