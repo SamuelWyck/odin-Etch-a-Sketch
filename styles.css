@@ -67,3 +67,8 @@ form {
     gap: 10px;
     margin-bottom: 10px;
 }
+
+.setting-btns-container {
+    display: flex;
+    gap: 10px;
+}
